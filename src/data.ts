@@ -1,0 +1,51 @@
+// ============= DATA MODELS =============
+export const PRODUCT_CATALOG = [
+    {
+      id: "p_apple",
+      name: "Apple",
+      baseCost: 10,
+      basePrice: 15,
+      defaultStock: 50,
+      rarity: "common",
+    },
+    {
+      id: "p_banana",
+      name: "Banana",
+      baseCost: 8,
+      basePrice: 12,
+      defaultStock: 60,
+      rarity: "common",
+    },
+    {
+      id: "p_orange",
+      name: "Orange",
+      baseCost: 12,
+      basePrice: 18,
+      defaultStock: 40,
+      rarity: "common",
+    },
+    {
+      id: "p_milk",
+      name: "Milk",
+      baseCost: 50,
+      basePrice: 65,
+      defaultStock: 20,
+      rarity: "uncommon",
+    },
+    {
+      id: "p_bread",
+      name: "Bread",
+      baseCost: 30,
+      basePrice: 45,
+      defaultStock: 30,
+      rarity: "uncommon",
+    },
+    {
+      id: "p_cheese",
+      name: "Cheese",
+      baseCost: 80,
+      basePrice: 120,
+      defaultStock: 15,
+      rarity: "rare",
+    },
+  ];

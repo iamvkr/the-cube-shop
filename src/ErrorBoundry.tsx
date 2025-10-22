@@ -1,8 +1,17 @@
 import React , { type ErrorInfo, type ReactNode } from 'react';
 
-class ErrorBoundary extends React.Component {
+interface ErrorBoundaryProps {
+    children?: ReactNode;
+  }
+  
+  interface ErrorBoundaryState {
+    hasError: boolean;
+    error: Error | null;
+  }
+
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   public state;
-  constructor(public props : { children?: ReactNode }) {
+  constructor(props : { children?: ReactNode }) {
     super(props);
     this.state = { hasError: false, error: null };
   }

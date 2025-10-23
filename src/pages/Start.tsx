@@ -204,18 +204,6 @@ const Start = () => {
                 Exit Game
               </Button>
 
-              {/* INTRO AND DETAILS */}
-              <Card
-                bg="#fefcd0"
-                textColor="black"
-                borderColor="black"
-                shadowColor="#c381b5"
-                className="p-4 text-center absolute top-50 left-20 text-xs"
-              >
-                <h2>Hello! Welcome to Cube Store!</h2>
-                <p>This is the card content.</p>
-              </Card>
-
               {/* LOGIN - SIGNUP FORM */}
               <Card
                 bg="#fefcd0"

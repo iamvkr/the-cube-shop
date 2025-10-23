@@ -28,12 +28,28 @@ export function CustomerPopup({ onClose }: { onClose: () => void }) {
   const timePercentage = (timeLeft / currentCustomer!.patienceSeconds) * 100;
   const isLowTime = timeLeft <= 10;
 
+  const onDismiss = () => {
+    clearCustomer();
+    setCustomerState({ ...customerState, isVisisble: false }); // remove current customer view
+    setTimeout(() => {
+      // bring a new customer after timeout:
+      setCustomerState({
+        isVisisble: true,
+        profileIndex: getRandom(1, 4), // generate bw 1 - 4
+      });
+    }, getRandom(10000, 20000));
+    onClose();
+  };
+
   if (showBilling) {
     return (
       <BillingModal
         items={currentCustomer!.items}
         onClose={() => setShowBilling(false)}
-        onComplete={onClose}
+        onComplete={()=>{
+            onDismiss()
+            // onClose
+        }}
       />
     );
   }
@@ -123,18 +139,7 @@ export function CustomerPopup({ onClose }: { onClose: () => void }) {
             <Button
               textColor="black"
               shadow="#e0e0e0"
-              onClick={() => {
-                clearCustomer();
-                setCustomerState({ ...customerState, isVisisble: false }); // remove current customer view
-                setTimeout(() => {
-                  // bring a new customer after timeout:
-                  setCustomerState({
-                    isVisisble: true,
-                    profileIndex: getRandom(1, 4), // generate bw 1 - 4
-                  });
-                }, getRandom(10000, 20000));
-                onClose();
-              }}
+              onClick={onDismiss}
               className="flex-1 "
             >
               Dismiss

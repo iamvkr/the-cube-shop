@@ -4,7 +4,10 @@ export const getRandom = (min: number, max: number) => {
 };
 // Helper function to calculate upgrade cost and duration
 export const calculateUpgradeCost = (incrementPercent: number) => {
-  return Math.round(incrementPercent * incrementPercent * 5);
+  const fact = incrementPercent / 10;
+  const price = 80 * fact - 5 * (fact - 1);
+  return price;
+  //   return Math.round(incrementPercent * incrementPercent / 5);
 };
 
 export const calculateUpgradeDuration = (incrementPercent: number) => {

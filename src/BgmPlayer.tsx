@@ -5,7 +5,7 @@ const BgmPlayer = () => {
     const { bgm } = useGameStore();
   return (
     <div className='fixed -top-40 -left-40'>
-        <ReactPlayer src='https://m.youtube.com/watch?v=OO2kPK5-qno' className='w-40 h-40' playing={bgm.isPlaying} />
+        <ReactPlayer src='https://m.youtube.com/watch?v=FFfdyV8gnWk' className='w-40 h-40' playing={bgm.isPlaying} />
     </div>
   )
 }

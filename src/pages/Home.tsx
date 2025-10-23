@@ -1,6 +1,6 @@
 // LANDING PAGE:
 import { Button, Card } from "pixel-retroui";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserStore } from "../zustand/store";
 import { getUser } from "../appwrite/auth";
@@ -12,10 +12,12 @@ import packageIcon from "../assets/package.svg";
 import clockIcon from "../assets/clock.svg";
 import playIcon from "../assets/play.svg";
 import { playClickAudio } from "../playSound";
+import HowToPlayModal from "../components/HowToPlayModal";
 
 const Home = () => {
   const navigate = useNavigate();
   const mainRef = useRef<HTMLDivElement>(null);
+  const [isOpenTutorialModal, setisOpenTutorialModal] = useState(false);
 
   const playNOW = () => {
     playClickAudio();
@@ -72,23 +74,32 @@ const Home = () => {
           Run your own store, serve quirky customers, and grow your coin stash.
           Set prices, manage stock, and unlock profits — at one click.
         </p>
-        {user === null && (
-          <Button onClick={playClickAudio}>
-            <img src={loaderIcon} alt="add" className="size-6 animate-spin" />
-          </Button>
-        )}
-        {user === false && <Button onClick={playNOW}>Play Now</Button>}
-        {user && (
-          <Link to={"/shop"}>
-            <Button
-              onClick={() => {
-                playClickAudio();
-              }}
-            >
-              Go To Shop
+        <div className="flex gap-2">
+          {user === null && (
+            <Button onClick={playClickAudio}>
+              <img src={loaderIcon} alt="add" className="size-6 animate-spin" />
             </Button>
-          </Link>
-        )}
+          )}
+          {user === false && <Button onClick={playNOW}>Play Now</Button>}
+          {user && (
+            <Link to={"/shop"}>
+              <Button
+                onClick={() => {
+                  playClickAudio();
+                }}
+              >
+                Go To Shop
+              </Button>
+            </Link>
+          )}
+          <Button
+            onClick={() => {
+              setisOpenTutorialModal(true);
+            }}
+          >
+            How to Play
+          </Button>
+        </div>
       </section>
 
       {/* How It Works */}
@@ -158,8 +169,39 @@ const Home = () => {
       <footer className="mt-20 text-sm text-gray-500 text-center border-t border-gray-200 pt-6 w-full max-w-4xl">
         Made with ❤ using React, Zustand, Tailwind CSS.
         <br />
-        Game logic and UI © 2025 YourName or Studio.
+        Powered by{" "}
+        <a
+          href="https://appwrite.io"
+          className="underline cursor-pointer"
+          title="Appwrite"
+          target="_blank"
+        >
+          Appwrite
+        </a>{" "}
+        © 2025{" "}
+        <a
+          href="/"
+          className="underline cursor-pointer"
+          title="The Cube Shop"
+          target="_blank"
+        >
+          thecubeshop
+        </a>{" "}
+        -{" "}
+        <a
+          href="https://github.com/iamvkr"
+          className="underline cursor-pointer"
+          title="Github - Iamvkr"
+          target="_blank"
+        >
+          Iamvkr
+        </a>
       </footer>
+
+      <HowToPlayModal
+        isOpenTutorialModal={isOpenTutorialModal}
+        setisOpenTutorialModal={setisOpenTutorialModal}
+      />
     </div>
   );
 };

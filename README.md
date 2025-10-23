@@ -31,10 +31,7 @@ Run your own shop! Purchase products, set prices strategically, serve customers 
 - **Visual Indicators**: Color-coded alerts for low stock (≤10) and out-of-stock items
 
 ### 👥 Smart Customer System
-- **Intelligent Shopping Lists**: Customers generate 1-3 item orders based on:
-  - **Price Sensitivity**: Lower prices = higher selection probability (90% at base cost, 10% at 100%+ markup)
-  - **Stock Availability**: Items with more stock have slight visibility boost
-  - **Weighted Algorithm**: Realistic customer behavior that mimics real-world shopping patterns
+- **Intelligent Shopping Lists**: Customers generate 1-3 items
 - **Patience Mechanic**: Each customer has their own Patience time - complete orders or lose the sale
 - **No Stock Orders**: Customers only request items that are in stock
 
@@ -42,12 +39,12 @@ Run your own shop! Purchase products, set prices strategically, serve customers 
 - **Memory Challenge**: Player must memorize customer's order and bill correctly
 - **Exact Match Validation**: Orders must match customer requests exactly (items + quantities)
 - **Instant Feedback**: 
-  - ✅ Success: Earn coins, inventory reduced
-  - ❌ Failure: Customer leaves, no sale
+  - Success: Earn coins, inventory reduced
+  - Failure: Customer leaves, no sale
 
 ### 📈 Profit Upgrade System
 - **Variable Increments**: Choose upgrade percentage (10%, 20%, 30%, 40%, 50%)
-- **Dynamic Costs**: Higher increments cost more coins
+- **Dynamic Costs**: Bulk increments cost less coins
 - **Timed Unlocks**: Wait for timer completion
 - **Strategic Depth**: Balance upgrade costs vs potential profit gains
 
@@ -56,14 +53,14 @@ Run your own shop! Purchase products, set prices strategically, serve customers 
 - **Smart Button States**:
   - "Add to Inventory" for new products
   - "Buy More Stock" for items with stock
-  - "Restock Now" (urgent red) for out-of-stock items
+  - "Restock Now" for out-of-stock items
 - **Visual Stock Indicators**: Color-coded borders and stock displays
 
 ---
 
 ## 🎮 Play Now
 
-[Live](http://thecubeshop.appwrite.network/) *(thecubeshop.appwrite.network)*
+Play Now Live at  - [`thecubeshop.appwrite.network`](http://thecubeshop.appwrite.network/)
 
 ---
 
@@ -103,67 +100,6 @@ src/
 └── utils.ts                  # utility functions
 └── playSounds.ts             # play sounds functions
 └── types.ts                  # type definations
-```
-
----
-
-## 🧮 Key Algorithms
-
-### 1. Customer Price Sensitivity
-```javascript
-calculateAttractiveness(item) {
-  const profitMargin = (item.price - item.baseCost) / item.baseCost;
-  
-  // Base chance: 90% at 0% margin, decreases as margin increases
-  let baseChance = 90 - profitMargin * 80;
-  baseChance = Math.max(10, Math.min(90, baseChance)); // Clamp 10-90%
-  
-  // Stock bonus: more stock = slightly higher visibility
-  const stockBonus = Math.min(item.stock / 20, 1.2); // Max +20%
-  
-  return baseChance * stockBonus;
-}
-```
-
-**Example Probabilities:**
-- Item at base cost (0% markup): 90% chance
-- Item at +25% markup: 70% chance
-- Item at +50% markup: 50% chance
-- Item at +100% markup: 10% chance (floor)
-
-### 2. Weighted Random Selection
-```javascript
-selectWeightedItem(itemsWithWeights) {
-  const totalWeight = items.reduce((sum, entry) => sum + entry.weight, 0);
-  let random = Math.random() * totalWeight;
-  
-  for (const entry of items) {
-    random -= entry.weight;
-    if (random <= 0) return entry.item;
-  }
-}
-```
-
-### 3. Upgrade Cost Formula
-- **Cost**: `incrementPercent² × 5`
-- **Duration**: `incrementPercent × 2` seconds
-
-**Examples:**
-- 10% increment: 500 coins, 20 seconds
-- 20% increment: 2000 coins, 40 seconds
-- 30% increment: 4500 coins, 60 seconds
-- 50% increment: 12500 coins, 100 seconds
-
-### 4. Order Validation
-```javascript
-validateOrder(cart, customerItems) {
-  if (cart.length !== customerItems.length) return false;
-  
-  return customerItems.every(custItem => {
-    const cartItem = cart.find(c => c.inventoryId === custItem.inventoryId);
-    return cartItem && cartItem.qty === custItem.qty;
-  });
-}
 ```
 
 ---
@@ -224,7 +160,6 @@ pnpm run build
 ## 🔮 Future Enhancements
 
 ### Planned Features
-- [ ] **Persistent Storage**: Save game progress with Zustand persist middleware
 - [ ] **Order History**: Track completed sales and statistics
 - [ ] **Difficulty Levels**: Easy (hints), Normal (current), Hard (faster timers)
 - [ ] **Achievement System**: Unlock badges for milestones
@@ -288,12 +223,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
     * [LIECIO](https://pixabay.com/users/liecio-3298866/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=190037) from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=190037)
     * [Universfield](https://pixabay.com/users/universfield-28281460/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=323603) from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=323603)
     * [Sarah H](https://pixabay.com/users/astralsynthesizer-50776509/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=358765) from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=358765)
-
 - BGM:
     * [Youtube](https://www.youtube.com/watch?v=OO2kPK5-qno)
-<!-- https://www.youtube.com/watch?v=OO2kPK5-qno&list=RDOO2kPK5-qno&start_radio=1 -->
-
-
 ---
 
 **Enjoy running your shop! 🏪**

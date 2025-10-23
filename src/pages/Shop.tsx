@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import addBoxIcon from "../assets/add-box.svg";
 import cartIcon from "../assets/cart.svg";
 import coinIcon from "../assets/coin.svg";
+import clockIcon from "../assets/clock.svg";
 import loaderIcon from "../assets/loader.svg";
 import volumeIcon from "../assets/volume2.svg";
 import volumeXIcon from "../assets/volumeX.svg";
@@ -27,6 +28,7 @@ import SplashView from "../components/SplashView";
 import { logoutUser } from "../appwrite/auth";
 import { getRandom } from "../utils";
 import PreLoadAssets from "../components/PreLoadAssets";
+import WallClock from "../components/WallClock";
 
 const Shop = () => {
   const { user } = useUserStore();
@@ -124,17 +126,23 @@ const Shop = () => {
     } else {
       bgm.setIsPlaying(false);
     }
-
-    const cTimer = setTimeout(() => {
-      setCustomerState({
-        isVisisble: true,
-        profileIndex: getRandom(1, 4), // generate bw 1 - 4
-      });
-    }, getRandom(10000, 30000)); // arrival at 10s to 30s
-    return () => {
-      clearTimeout(cTimer);
-    };
   }, []);
+
+  useEffect(() => {
+    // at first when user comes to play, inventory will be empty and do not show any customer.
+    //  when inventory updates, it trigger a new customer bw 10 to 30s
+    if (inventory.length > 0) {
+      const cTimer = setTimeout(() => {
+        setCustomerState({
+          isVisisble: true,
+          profileIndex: getRandom(1, 4), // generate bw 1 - 4
+        });
+      }, getRandom(10000, 30000)); // arrival at 10s to 30s
+      return () => {
+        clearTimeout(cTimer);
+      };
+    }
+  }, [inventory.length]);
 
   return (
     <PreLoadAssets>
@@ -290,15 +298,15 @@ const Shop = () => {
                 </div>
 
                 {/* INTRO AND DETAILS */}
+                <img src={clockIcon} alt="" className="absolute top-34 left-58 size-9" />
                 <Card
-                  bg="#fefcd0"
+                  bg="transparent"
                   textColor="black"
-                  borderColor="black"
-                  shadowColor="#c381b5"
-                  className="p-4 text-center absolute top-50 left-20 text-xs"
+                //   borderColor="black"
+                //   shadowColor="#c381b5"
+                  className="text-center absolute top-41 left-46 backdrop-blur-sm "
                 >
-                  <h2>Hello! Welcome to Cube Store!</h2>
-                  <p>This is the card content.</p>
+                  <WallClock />
                 </Card>
 
                 {/* Computer box */}
@@ -321,16 +329,32 @@ const Shop = () => {
                     className="text-center absolute bottom-34 left-150 text-xs w-37 h-45 overflow-hidden cursor-pointer"
                   >
                     {customerState.profileIndex === 1 && (
-                      <img src={"/man_1.png"} alt="Add" />
+                      <img
+                        src={"/man_1.png"}
+                        alt="man_1"
+                        className="hover:filter-[drop-shadow(4px_4px_0_green)_drop-shadow(-4px_-4px_0_green)]"
+                      />
                     )}
                     {customerState.profileIndex === 2 && (
-                      <img src={"/man_2.png"} alt="Add" />
+                      <img
+                        src={"/man_2.png"}
+                        alt="man_2"
+                        className="hover:filter-[drop-shadow(4px_4px_0_green)_drop-shadow(-4px_-4px_0_green)]"
+                      />
                     )}
                     {customerState.profileIndex === 3 && (
-                      <img src={"/woman_1.png"} alt="Add" />
+                      <img
+                        src={"/woman_1.png"}
+                        alt="woman_1"
+                        className="hover:filter-[drop-shadow(4px_4px_0_green)_drop-shadow(-4px_-4px_0_green)]"
+                      />
                     )}
                     {customerState.profileIndex === 4 && (
-                      <img src={"/woman_2.png"} alt="Add" />
+                      <img
+                        src={"/woman_2.png"}
+                        alt="woman_2"
+                        className="hover:filter-[drop-shadow(4px_4px_0_green)_drop-shadow(-4px_-4px_0_green)]"
+                      />
                     )}
                   </div>
                 )}

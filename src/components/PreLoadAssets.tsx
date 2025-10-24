@@ -20,67 +20,6 @@ const PreLoadAssets = ({ children }: { children: React.ReactNode }) => {
     // { type: "audio", src: "/assets/music/store-theme.mp3" },
   ];
 
-  async function preloadAssets(assets: { type: string; src: string }[]) {
-    let loaded = 0;
-    const total = assets.length;
-
-    function preloadImage(src: string) {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = () => resolve(src);
-        img.onerror = reject;
-      });
-    }
-
-    function preloadAudio(src: string) {
-      return new Promise((resolve, reject) => {
-        const audio = new Audio();
-        audio.src = src;
-        audio.preload = "auto";
-        audio.addEventListener("canplaythrough", () => resolve(src), {
-          once: true,
-        });
-        audio.onerror = reject;
-      });
-    }
-
-    for (const asset of assets) {
-      const loader =
-        asset.type === "image"
-          ? preloadImage(asset.src)
-          : asset.type === "audio"
-          ? preloadAudio(asset.src)
-          : Promise.resolve();
-
-      try {
-        await loader;
-      } catch (err) {
-        console.warn("Failed to load:", asset.src);
-      }
-
-      loaded++;
-      setProgress((loaded / total) * 100);
-    }
-
-    return true;
-  }
-
-  //   useEffect(() => {
-  //     if (sessionStorage.getItem("loaded")) {
-  //       setReady(true);
-  //     } else {
-  //       preloadAssets(assets).then(() => {
-  //         setTimeout(() => {
-  //           setReady(true);
-  //         }, 500); // slight delay for UX
-  //         sessionStorage.setItem("loaded","true")
-  //       });
-  //     }
-  //   }, [assets, setReady]);
-
-  //   let loaded = 0;
-
   useEffect(() => {
     if (sessionStorage.getItem("loaded")) {
       setReady(true);
@@ -88,7 +27,7 @@ const PreLoadAssets = ({ children }: { children: React.ReactNode }) => {
       loadAssets().then(() => {
         setTimeout(() => {
           setReady(true);
-            sessionStorage.setItem("loaded", "true");
+          sessionStorage.setItem("loaded", "true");
         }, 1000);
       });
     }
@@ -96,9 +35,9 @@ const PreLoadAssets = ({ children }: { children: React.ReactNode }) => {
       for (let i = 0; i < assets.length; i++) {
         const res = await fetch(assets[i].src);
         if (res.ok) {
-            setLoaded(((i + 1) / assets.length) * 100);
+          setLoaded(((i + 1) / assets.length) * 100);
         }
-        await new Promise((resolve, rej) => {
+        await new Promise((resolve) => {
           setTimeout(() => {
             resolve(true);
           }, getRandom(800, 1000));

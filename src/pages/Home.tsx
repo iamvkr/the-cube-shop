@@ -85,7 +85,12 @@ const Home = () => {
             <Link to={"/shop"}>
               <Button
                 onClick={() => {
-                  playClickAudio();
+                  mainRef.current?.requestFullscreen();
+                  try {
+                    (window.screen.orientation as any).lock(
+                      "landscape-primary"
+                    );
+                  } catch (error) {}
                 }}
               >
                 Go To Shop

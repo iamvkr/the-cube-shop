@@ -14,6 +14,13 @@ const SplashView = ({
   setIsSfxEnabled: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { bgm } = useGameStore();
+  const goFullScreen = ()=>{
+    // this should fix full screen issue in mobiles
+    document.body?.requestFullscreen();
+    try {
+      (window.screen.orientation as any).lock("landscape-primary");
+    } catch (error) {}
+  }
   return (
     <>
       <Button
@@ -21,7 +28,7 @@ const SplashView = ({
         textColor="black"
         borderColor="black"
         shadow="#c381b5"
-        onClick={setupGame}
+        onClick={()=> {goFullScreen();setupGame()}}
         className="flex items-center justify-center gap-2 w-xs"
       >
         <img src={playIcon} alt="volume" className="size-5" />

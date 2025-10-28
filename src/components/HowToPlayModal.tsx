@@ -23,7 +23,7 @@ const HowToPlayModal = ({
       >
         <div className="w-full h-60 xl:w-160 xl:h-80 rounded overflow-hidden">
         <ReactPlayer
-          src="https://m.youtube.com/watch?v=FFfdyV8gnWk"
+          src="https://m.youtube.com/watch?v=43B930Mu6Vw"
           className="w-full h-full "
           controls={true}
         />
